@@ -7,21 +7,21 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Group group1 = new Group();
-		group1.setGroupName("Первая группа");
+		group1.setGroupName("First group");
 		
-		Student student1 = new Student("Alexander", "Ledenov", Gender.MALE, 1, "Первая группа");
-		Student student2 = new Student("Dmytro", "Korsakov", Gender.MALE, 2, "Первая группа");
-		Student student3 = new Student("Kateryna", "Ledenova", Gender.FEMALE, 3, "Первая группа");
-		Student student4 = new Student("Irina", "Selvashuk", Gender.FEMALE, 4, "Первая группа");
-		Student student5 = new Student("Alevtina", "Korotka", Gender.FEMALE, 5, "Первая группа");
-		Student student6 = new Student("Alexander", "Sachenko", Gender.MALE, 6, "Первая группа");
-		Student student7 = new Student("Ivan", "Naumenko", Gender.MALE, 7, "Первая группа");
-		Student student8 = new Student("Anton", "Ivanov", Gender.MALE, 8, "Первая группа");
-		Student student9 = new Student("Nikolay", "Naumenko", Gender.MALE, 9, "Первая группа");
-		Student student10 = new Student("Andrey", "Antonenko", Gender.MALE, 10, "Первая группа");
-		Student student11 = new Student("Miroslav", "Kozachenko", Gender.MALE, 11, "Первая группа");
+		Student student1 = new Student("Alexander", "Ledenov", Gender.MALE, 1, "First group");
+		Student student2 = new Student("Dmytro", "Korsakov", Gender.MALE, 2, "First group");
+		Student student3 = new Student("Kateryna", "Ledenova", Gender.FEMALE, 3, "First group");
+		Student student4 = new Student("Irina", "Selvashuk", Gender.FEMALE, 4, "First group");
+		Student student5 = new Student("Alevtina", "Korotka", Gender.FEMALE, 5, "First group");
+		Student student6 = new Student("Alexander", "Sachenko", Gender.MALE, 6, "First group");
+		Student student7 = new Student("Ivan", "Naumenko", Gender.MALE, 7, "First group");
+		Student student8 = new Student("Anton", "Ivanov", Gender.MALE, 8, "First group");
+		Student student9 = new Student("Nikolay", "Naumenko", Gender.MALE, 9, "First group");
+		Student student10 = new Student("Andrey", "Antonenko", Gender.MALE, 10, "First group");
+		Student student11 = new Student("Miroslav", "Kozachenko", Gender.MALE, 11, "First group");
 		
-		//Добавление в группу 11 студентов
+		//add students to a group
 		try {
             group1.addStudent(student1);
             group1.addStudent(student2);
@@ -38,7 +38,7 @@ public class Main {
             e.printStackTrace();
         }
 		
-		//Поиск по фамилии
+		//search student by lastname
 		try {
             group1.searchStudentByLastName("Kozak");
         } catch (StudentNotFoundException e){
@@ -51,6 +51,7 @@ public class Main {
     	group1.sortStudentsByLastName();
     	System.out.println("Sorted " + group1.toString()); 
     	
+    	System.out.println();
     	//delete students by id
     	System.out.println(group1.toString()); 
         group1.removeStudentByID(1);
@@ -59,6 +60,7 @@ public class Main {
         //add student with keyboard
         ScanStudentData scan = new ScanStudentData();
         
+        System.out.println();
 		try {
 			group1.addStudent(scan.dataReader());
 			group1.addStudent(scan.dataReader());

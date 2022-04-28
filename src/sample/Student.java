@@ -2,8 +2,8 @@ package sample;
 
 public class Student extends Human {
 	
-	private int id; //номер зачётки
-	private String groupName; //название группы
+	private int id; 
+	private String groupName; 
 	
 	public Student(String name, String lastname, Gender gender, int id, String groupName) {
 		super(name, lastname, gender);
