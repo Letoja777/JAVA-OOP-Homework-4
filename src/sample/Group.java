@@ -1,7 +1,7 @@
 package sample;
 import java.util.Scanner;
 import java.util.Arrays;
-
+import java.util.Comparator;
 
 public class Group {
 	
@@ -83,12 +83,13 @@ public class Group {
         return false;
 	}
 	
+	public void sortStudentsByLastName() {
+		Arrays.sort(students, new StudentLastnameComparator());
+	}
 	
 	@Override
 	public String toString() {
 		return "Group [groupName=" + groupName + ", students=" + Arrays.toString(students) + "]";
 	}
-	
-	
-	
+
 }

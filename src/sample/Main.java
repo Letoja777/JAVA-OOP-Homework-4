@@ -1,5 +1,7 @@
 package sample;
 
+import java.util.Arrays;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -16,10 +18,8 @@ public class Main {
 		Student student7 = new Student("Ivan", "Naumenko", Gender.MALE, 7, "Первая группа");
 		Student student8 = new Student("Anton", "Ivanov", Gender.MALE, 8, "Первая группа");
 		Student student9 = new Student("Nikolay", "Naumenko", Gender.MALE, 9, "Первая группа");
-		Student student10 = new Student("Andrey", "Shevchenko", Gender.MALE, 10, "Первая группа");
-		Student student11 = new Student("Miroslav", "Kozachenko", Gender.MALE, 10, "Первая группа");
-		
-		System.out.println(student1.getName() + " "+ student1.getLastName() + ", "+ student2.getGender());
+		Student student10 = new Student("Andrey", "Antonenko", Gender.MALE, 10, "Первая группа");
+		Student student11 = new Student("Miroslav", "Kozachenko", Gender.MALE, 11, "Первая группа");
 		
 		//Добавление в группу 11 студентов
 		try {
@@ -44,11 +44,27 @@ public class Main {
         } catch (StudentNotFoundException e){
             e.printStackTrace();
         }
-		
-		//Удалить студента из группы
-		System.out.println(group1.toString()); //группа до удаления
-        group1.removeStudentByID(1);
-        System.out.println(group1.toString()); //группа после удаления
-	}
 
+        System.out.println();
+    	
+		//sort students by lastname
+    	group1.sortStudentsByLastName();
+    	System.out.println("Sorted " + group1.toString()); 
+    	
+    	//delete students by id
+    	System.out.println(group1.toString()); 
+        group1.removeStudentByID(1);
+        System.out.println(group1.toString()); 
+        
+        //add student with keyboard
+        ScanStudentData scan = new ScanStudentData();
+        
+		try {
+			group1.addStudent(scan.dataReader());
+			group1.addStudent(scan.dataReader());
+			System.out.println(group1.toString()); 
+		} catch (GroupOverflowException e) {
+			e.printStackTrace();
+		}
+	}
 }
