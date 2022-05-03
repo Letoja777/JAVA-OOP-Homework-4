@@ -1,5 +1,9 @@
 package sample;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Arrays;
 
 public class Main {
@@ -18,7 +22,7 @@ public class Main {
 		Student student7 = new Student("Ivan", "Naumenko", Gender.MALE, 7, "First group");
 		Student student8 = new Student("Anton", "Ivanov", Gender.MALE, 8, "First group");
 		Student student9 = new Student("Nikolay", "Naumenko", Gender.MALE, 9, "First group");
-		Student student10 = new Student("Andrey", "Antonenko", Gender.MALE, 10, "First group");
+		Student student10 = new Student("Andrey", "Antonenko", Gender.MALE, 0, "First group");
 		Student student11 = new Student("Miroslav", "Kozachenko", Gender.MALE, 11, "First group");
 		
 		//add students to a group
@@ -68,5 +72,32 @@ public class Main {
 		} catch (GroupOverflowException e) {
 			e.printStackTrace();
 		}
+        
+		//group to csv
+		GroupFileStorage gr = new GroupFileStorage();
+		try {
+			gr.saveGroupToCSV(group1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println();
+		
+		//read from csv file
+		File file = new File(group1.getGroupName() + ".csv");
+		Group group2 = new Group();
+		try {
+			group2 = gr.loadGroupFromCSV(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println();
+		
+		//search file by name
+		File search = gr.findFileByGroupName("Test", new File ("C:\\java_oop\\Homework Human"));
+		File search2 = gr.findFileByGroupName("First group", new File ("C:\\java_oop\\Homework Human"));
+
 	}
 }
