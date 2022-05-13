@@ -2,6 +2,7 @@ package sample;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class Group {
 	
@@ -24,6 +25,41 @@ public class Group {
 		return groupName;
 	}
 
+	public boolean CheckStudentEquals(Student student) {
+        for (int i = 0; i < students.length; i++) {
+        	if (students[i] != null) {
+        		 if (students[i].hashCode() == student.hashCode()) {
+                     if (students[i].equals(student)) {
+                        return false;
+                     }
+                 }
+        	}
+           
+        }
+        return true;
+    }
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(students);
+		result = prime * result + Objects.hash(groupName);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Group other = (Group) obj;
+		return Objects.equals(groupName, other.groupName) && Arrays.equals(students, other.students);
+	}
+
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
@@ -37,6 +73,11 @@ public class Group {
 	}
 
 	public void addStudent(Student student) throws GroupOverflowException {
+		
+		if(!CheckStudentEquals(student)) {
+            throw new GroupOverflowException("Такой студент уже есть в группе");
+        }
+		
         boolean isFull = false;
         
         for (int i = 0; i < students.length; i++) {

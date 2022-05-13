@@ -1,5 +1,7 @@
 package sample;
 
+import java.util.Objects;
+
 public class Human {
 	private String name;
 	private String lastname;
@@ -15,6 +17,23 @@ public class Human {
 	public Human() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(gender, lastname, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Human other = (Human) obj;
+		return gender == other.gender && Objects.equals(lastname, other.lastname) && Objects.equals(name, other.name);
 	}
 
 	public String getName() {
