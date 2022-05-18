@@ -1,43 +1,20 @@
 package sample;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.Reader;
-import java.io.Writer;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class GroupFileStorage {
-	
-	//мой вариант
-//	public void saveGroupToCSV(Group gr) throws IOException {
-//		File file = new File(gr.getGroupName() + ".csv");
-//        try (OutputStream os = new FileOutputStream(file)) {
-//			byte[] bytes = gr.toString().getBytes();
-//			os.write(bytes);
-//			} catch (IOException e) {
-//			e.printStackTrace();
-//			}
-//	}
 	
 	public void saveGroupToCSV(Group gr) throws IOException {
 
 		try (PrintWriter pw = new PrintWriter(new File(gr.getGroupName() + ".csv"))) {
 			
-			for (int i = 0; i < gr.getStudents().length; i++) {
-				if (gr.getStudents()[i] != null) {
-					pw.println(gr.getStudents()[i].getName() + ";" + gr.getStudents()[i].getLastName() + ";"
-							+ gr.getStudents()[i].getGender() + ";" + gr.getStudents()[i].getId() + ";"
-							+ gr.getStudents()[i].getGroupName());
-				}
+			for (Student stud : gr.getStudents()) {
+				pw.println(stud.getName() + ";" + stud.getLastName() + ";" + stud.getGender() + ";" + stud.getId() + ";"
+						+ stud.getGroupName());
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	

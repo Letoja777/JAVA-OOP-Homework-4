@@ -1,51 +1,47 @@
 package sample;
-import java.util.Scanner;
-import java.util.Arrays;
-import java.util.Comparator;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class Group {
-	
 	private String groupName;
-	
-	private Student[] students = new Student[10];
 
-	public Group(String groupName, Student[] students) {
+	private List<Student> students = new ArrayList<>();
+
+	public Group(String groupName, List<Student> students) {
 		super();
 		this.groupName = groupName;
 		this.students = students;
 	}
 
+	public Group(String groupName) {
+		this.groupName = groupName;
+	}
+
 	public Group() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getGroupName() {
 		return groupName;
 	}
 
-	public boolean CheckStudentEquals(Student student) {
-        for (int i = 0; i < students.length; i++) {
-        	if (students[i] != null) {
-        		 if (students[i].hashCode() == student.hashCode()) {
-                     if (students[i].equals(student)) {
-                        return false;
-                     }
-                 }
-        	}
-           
-        }
-        return true;
-    }
-	
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
+
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Arrays.hashCode(students);
-		result = prime * result + Objects.hash(groupName);
-		return result;
+		return Objects.hash(groupName, students);
 	}
 
 	@Override
@@ -57,80 +53,69 @@ public class Group {
 		if (getClass() != obj.getClass())
 			return false;
 		Group other = (Group) obj;
-		return Objects.equals(groupName, other.groupName) && Arrays.equals(students, other.students);
+		return Objects.equals(groupName, other.groupName) && Objects.equals(students, other.students);
 	}
 
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
-	}
-
-	public Student[] getStudents() {
-		return students;
-	}
-
-	public void setStudents(Student[] students) {
-		this.students = students;
+	public boolean CheckStudentEquals(Student student) {
+		if (student == null) {
+			return false;
+		}
+		for (Student stud : students) {
+			student.setGroupName(this.groupName);
+			if (stud.equals(student)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void addStudent(Student student) throws GroupOverflowException {
-		
-		if(!CheckStudentEquals(student)) {
-            throw new GroupOverflowException("Такой студент уже есть в группе");
-        }
-		
-        boolean isFull = false;
-        
-        for (int i = 0; i < students.length; i++) {
-            if (students[i] == null) {
-                students[i] = student;
-                System.out.println("Студент " + students[i].getName() + " добавлен в " + groupName);
-                isFull = true;
-                break;
-            }
-        }
-        if (!isFull) {
-            throw new GroupOverflowException("Группа переполнена");
-        }
-    }
-	
-	public Student searchStudentByLastName (String lastName) throws StudentNotFoundException {
-		boolean isExist = false;
-		for (int i = 0; i < students.length; i++) {
-			if (students[i] != null) {
-				if (students[i].getLastName().equals(lastName)) {
-					System.out.println("Студент " + students[i].getLastName() + " найден в группе");
-					isExist = true;
-                    return students[i];
+
+			if (!CheckStudentEquals(student)) {
+				int groupSize = 10;
+				if (students.size() < groupSize) {
+					students.add(student);
+					student.setGroupName(groupName);
+					System.out.println(student.getLastName() + " был добавлен в группу "+ student.getGroupName());
+				} else {
+					throw new GroupOverflowException("Группа уже заполнена!");
 				}
+			} else {
+				System.out.println(student + " уже присутствует в группе!");
+			}
+	}
+
+	public Student searchStudentByLastName(String lastName) throws StudentNotFoundException {
+		Student search = null;
+		for (Student stud : this.students) {
+			if (stud.getLastName().equals(lastName)) {
+				System.out.println("Студент " + lastName + " найден в группе!");
+				search = stud;
 			}
 		}
-		
-		if (!isExist) {
-            throw new StudentNotFoundException("Студент не найден в группе");
-        }
-		return null;
+		if (search == null) {
+			throw new StudentNotFoundException("Студент " + lastName + " не найден в группе!");
+		}
+		return search;
 	}
-	
-	public boolean removeStudentByID (int id) {
-		for (int i = 0; i < students.length; i++) {
-            if (students[i] != null) {
-                if (students[i].getId() == id) {
-                    System.out.println("Студент " + students[i].getLastName() + " удалён из группы");
-                    students[i] = null;
-                    return true;
-                }
-            }
-        }
-        return false;
+
+	public boolean removeStudentByID(int id) {
+		for (int i = 0; i < students.size(); i++) {
+			if (students.get(i).getId() == id) {
+				System.out.println("Студент " + students.get(i).getLastName() + students.get(i).getName() + " был удалён из группы.");
+				students.remove(i);
+				return true;
+			}
+		}
+		return false;
 	}
-	
+
 	public void sortStudentsByLastName() {
-		Arrays.sort(students, new StudentLastnameComparator());
+		Collections.sort(getStudents(),new StudentLastnameComparator());
 	}
 	
 	@Override
 	public String toString() {
-		return "Group [groupName=" + groupName + ", students=" + Arrays.toString(students) + "]";
+		return "Group [groupName= " + groupName + ", students= " + students + "]";
 	}
-
 }

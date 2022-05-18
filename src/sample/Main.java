@@ -83,8 +83,8 @@ public class Main {
 		}
 		
 		System.out.println();
-		
-		//read from csv file
+	
+//		//read from csv file
 		File file = new File(group1.getGroupName() + ".csv");
 		Group group2 = new Group();
 		try {
@@ -98,6 +98,5 @@ public class Main {
 		//search file by name
 		File search = gr.findFileByGroupName("Test", new File ("C:\\java_oop\\Homework Human"));
 		File search2 = gr.findFileByGroupName("First group", new File ("C:\\java_oop\\Homework Human"));
-
 	}
 }
