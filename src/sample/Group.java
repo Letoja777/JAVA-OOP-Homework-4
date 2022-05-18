@@ -56,7 +56,7 @@ public class Group {
 		return Objects.equals(groupName, other.groupName) && Objects.equals(students, other.students);
 	}
 
-	public boolean CheckStudentEquals(Student student) {
+	public boolean ñheckStudentEquals(Student student) {
 		if (student == null) {
 			return false;
 		}
@@ -71,7 +71,7 @@ public class Group {
 
 	public void addStudent(Student student) throws GroupOverflowException {
 
-			if (!CheckStudentEquals(student)) {
+			if (!ñheckStudentEquals(student)) {
 				int groupSize = 10;
 				if (students.size() < groupSize) {
 					students.add(student);
